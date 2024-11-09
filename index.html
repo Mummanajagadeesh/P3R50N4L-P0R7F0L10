@@ -230,27 +230,34 @@
             overflow: hidden;
         }
 
-        .star {
-            position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            width: 3px;
-            height: 3px;
-            opacity: 0.9;
-        }
+/* Additional Starry Background & Cursor Ball CSS */
+.star {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.9;
+    width: 2px;
+    height: 2px;
+    animation: twinkle 1s infinite ease-in-out;
+}
 
-        .star.twinkle {
-            animation: twinkle 1.5s infinite ease-in-out;
-        }
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
 
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
+/* Cursor-following ball */
+.cursor-ball {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #00f;
+    pointer-events: none;
+    transition: transform 0.1s ease;
+    z-index: 1000;
+}
+
 
         /* Electronics/Robotics/Aesthetic */
         .background-graphics {
@@ -450,59 +457,81 @@
     <div class="background-graphics"></div>
     <div class="background-graphics-robotics"></div>
 
-    <script>
-        // Intersection Observer for scrolling effect
-        const sections = document.querySelectorAll('.section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
+<script>
+    // Intersection Observer for scrolling effect
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
         });
-        sections.forEach(section => {
-            observer.observe(section);
+    });
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Toggle menu for mobile
+    const menuIcon = document.querySelector('.menu-icon');
+    const nav = document.querySelector('nav');
+    menuIcon.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        menuIcon.textContent = menuIcon.textContent === '✖' ? '☰' : '✖';
+    });
+
+    // Create background stars
+    const background = document.querySelector('.background-stars');
+    const numStars = 150;
+
+    for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.width = `${Math.random() * 3 + 1}px`;
+        star.style.height = star.style.width;
+        star.style.animationDuration = `${Math.random() * 3 + 1}s`; // Random blink duration
+        background.appendChild(star);
+    }
+
+    // Mouse hover effect for interactive stars
+    document.body.addEventListener('mousemove', (e) => {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => {
+            const rect = star.getBoundingClientRect();
+            const dx = e.clientX - rect.left;
+            const dy = e.clientY - rect.top;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) {
+                star.style.transform = `translate(${dx * 0.1}px, ${dy * 0.1}px)`;
+            } else {
+                star.style.transform = 'translate(0, 0)';
+            }
         });
+    });
 
-        // Toggle menu for mobile
-        const menuIcon = document.querySelector('.menu-icon');
-        const nav = document.querySelector('nav');
+    // Cursor-following ball effect
+    const cursorBall = document.createElement('div');
+    cursorBall.style.width = '12px';
+    cursorBall.style.height = '12px';
+    cursorBall.style.borderRadius = '50%';
+    cursorBall.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+    cursorBall.style.position = 'fixed';
+    cursorBall.style.pointerEvents = 'none';
+    cursorBall.style.transform = 'translate(-50%, -50%)';
+    cursorBall.style.transition = 'transform 0.05s ease';
+    document.body.appendChild(cursorBall);
 
-        menuIcon.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            menuIcon.textContent = menuIcon.textContent === '✖' ? '☰' : '✖';
-        });
+    document.addEventListener('mousemove', (e) => {
+        cursorBall.style.left = `${e.clientX}px`;
+        cursorBall.style.top = `${e.clientY}px`;
+    });
+</script>
 
-        // Create background stars
-        const background = document.querySelector('.background-stars');
-        const numStars = 150;
 
-        for (let i = 0; i < numStars; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.top = `${Math.random() * 100}vh`;
-            star.style.left = `${Math.random() * 100}vw`;
-            star.classList.add('twinkle');
-            background.appendChild(star);
-        }
 
-        // Mouse hover effect to move stars apart
-        document.body.addEventListener('mousemove', (e) => {
-            const stars = document.querySelectorAll('.star');
-            stars.forEach(star => {
-                const rect = star.getBoundingClientRect();
-                const dx = e.clientX - rect.left;
-                const dy = e.clientY - rect.top;
-                const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < 100) {
-                    star.style.transform = `translate(${dx * 0.1}px, ${dy * 0.1}px)`;
-                } else {
-                    star.style.transform = 'translate(0, 0)';
-                }
-            });
-        });
-    </script>
 
 </body>
 </html>
