@@ -554,18 +554,44 @@ Put your HTML text here<!DOCTYPE html>
         });
     });
     
+    // // Intersection Observer for scrolling effect
+    // const sections = document.querySelectorAll('.section');
+    // const observer = new IntersectionObserver((entries) => {
+    //     entries.forEach(entry => {
+    //         if (entry.isIntersecting) {
+    //             entry.target.classList.add('active');
+    //         }
+    //     });
+    // });
+    // sections.forEach(section => {
+    //     observer.observe(section);
+    // });
+    
+    
     // Intersection Observer for scrolling effect
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+const sections = document.querySelectorAll('.section');
+
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            // Check if the section is intersecting with the viewport
             if (entry.isIntersecting) {
+                // Add 'active' class when entering the viewport
                 entry.target.classList.add('active');
+            } else {
+                // Remove 'active' class when exiting the viewport
+                entry.target.classList.remove('active');
             }
         });
-    });
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    },
+    {
+        threshold: 0.3, // Trigger when 10% of the section is visible
+    }
+);
+
+// Observe each section
+sections.forEach((section) => observer.observe(section));
+
 
     // Toggle menu for mobile
     const menuIcon = document.querySelector('.menu-icon');
