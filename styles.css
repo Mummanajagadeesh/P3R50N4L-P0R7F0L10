@@ -1,0 +1,286 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Fira Mono', monospace;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
+h1, h2 {
+    margin-bottom: 20px;
+}
+.section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease-out;
+}
+.section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px;
+}
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    z-index: 10;
+}
+nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+nav a:hover {
+    color: #00f;
+}
+.menu-icon {
+    display: none;
+    cursor: pointer;
+    font-size: 30px;
+}
+.header {
+    text-align: center;
+    margin-top: 100px;
+}
+.header h1 {
+    font-size: 50px;
+}
+.social-icons {
+    margin-top: 20px;
+    text-align: center;
+}
+.social-icons a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.social-icons a:hover {
+    color: #00f;
+}
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+}
+.section-content {
+    margin-bottom: 100px;
+}
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.project-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    position: relative;
+}
+.project-card:hover {
+    transform: translateY(-10px);
+}
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    filter: brightness(0.85);
+}
+.project-card img.fade-bottom {
+    height: 250px;
+    background: linear-gradient(transparent, black);
+}
+.project-card h3 {
+    margin-bottom: 10px;
+}
+.project-card p {
+    margin-bottom: 10px;
+}
+.project-card a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.project-card a:hover {
+    color: #00f;
+}
+/* Timeline styles */
+.timeline {
+    position: relative;
+    padding: 0;
+    border-left: 2px solid #fff;
+    margin-top: 50px;
+}
+.timeline-block {
+    position: relative;
+    width: 50%;
+    padding: 20px;
+}
+.timeline-block::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #00f;
+    border-radius: 50%;
+    transform: translateX(-50%);
+}
+.timeline-block.left {
+    left: 0;
+}
+.timeline-block.right {
+    left: 50%;
+    text-align: right;
+}
+.timeline-block.right::before {
+    transform: translateX(50%);
+}
+.timeline-block p {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    display: inline-block;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.form-container input, 
+.form-container textarea {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    font-family: 'Fira Mono', monospace;
+}
+.submit-btn {
+    cursor: pointer;
+    background-color: #00f;
+    border: none;
+    padding: 10px;
+    color: #fff;
+}
+
+/* Starry Background */
+.background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: #000;
+    overflow: hidden;
+}
+
+/* Additional Starry Background & Cursor Ball CSS */
+.star {
+position: absolute;
+background-color: #fff;
+border-radius: 50%;
+opacity: 0.9;
+width: 2px;
+height: 2px;
+animation: twinkle 1s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.5; }
+}
+
+/* Cursor-following ball */
+.cursor-ball {
+position: fixed;
+width: 15px;
+height: 15px;
+border-radius: 50%;
+background-color: #00f;
+pointer-events: none;
+transition: transform 0.5s ease;
+z-index: 1000;
+}
+
+
+/* Electronics/Robotics/Aesthetic */
+.background-graphics {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    width: 400px;
+    height: 400px;
+    opacity: 0.2;
+    background: url('https://img.icons8.com/external-outline-juicy-fish/400/electronic-circuit.png') no-repeat;
+}
+
+.background-graphics-robotics {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    width: 300px;
+    height: 300px;
+    opacity: 0.2;
+    background: url('https://img.icons8.com/external-outline-juicy-fish/300/robotics.png') no-repeat;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav {
+        justify-content: flex-end;
+    }
+    nav a {
+        display: none;
+    }
+    .menu-icon {
+        display: block;
+    }
+    nav.active a {
+        display: block;
+        margin: 10px 0;
+    }
+    .timeline-block.right {
+        left: 0;
+    }
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.view-all-button {
+color: #fff;
+text-decoration: none;
+font-size: 18px;
+transition: color 0.3s;
+}
+
+.view-all-button:hover {
+color: #00f; /* Blue color on hover */
+}
+
+
+/* Styling for headers */
+h1, h2 {
+font-size: 2em;
+cursor: pointer;
+display: inline-block; /* Ensure text behaves as a block element for hovering */
+}
