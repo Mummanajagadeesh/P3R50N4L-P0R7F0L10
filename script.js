@@ -1,3 +1,4 @@
+window.location.href = "https://mummanajagadeesh.github.io/";
 document.addEventListener("DOMContentLoaded", () => {
     // Cursor-following ball with added delay
     const cursorBall = document.createElement("div");
